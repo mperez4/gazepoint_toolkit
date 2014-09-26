@@ -36,7 +36,7 @@ Run the gazepoint-screen calibration for better results. `gazepoint_calibrate()`
 
 ###Get data
 This abstract function gets whatever type of data that you want. Just pass it anything from the following options as a string:
-`get_data('Best POG')`
+`get_data('ENABLE_SEND_POG_BEST')`
 <table>
 	<tr>
 		<td><b>Type</td>
