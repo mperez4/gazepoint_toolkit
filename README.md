@@ -11,7 +11,7 @@ To begin, downlaod the `gazepoint_connect.m` file and place it in your project d
 Whether you are running your experiments on the same computer that hosts the eye-tracker, or you are using an external computer, the GP3 uses TCP/IP to communicate. To find out the host computer's ip address, open up the `cmd` application and run `ipconfig`. You will see something like this:
 
 
-![img](ipconfig.png) 
+![img](media/ipconfig.png) 
 
 
 The IPv4 is your machine's ip address. 
