@@ -1,10 +1,12 @@
 #Gazepoint toolkit for Matlab
-
-##Introduction
-This repository holds an API abstraction for Matlab.
-The GP3 communicates via the Open Eye-gaze Interface API, which relies on TCP/IP for data transfer. The documentation for this API is available [here](http://gazept.com/dl/Gazepoint_API_v2.0.pdf). The GP3 has been designed for Microsoft Windows 7 and 8 (32- and 64-bit) and requires an Intel Core i5 or higher processor, 8GB RAM and two USB ports. Though the GP3 hardware and software must be ran on a Windows machine you can use its API by opening up the _GazepointControl_ application. Using the GP3 eye-tracker is trivial in any programming platform that allows TCP/IP communication.
+[Download](#Download tool-kit) | [Connecting](#Connecting to the Gazepoint Tracker) | [Hardware setup](#Setting up the GP3 and GazepointControl) | [Calibrating](##Calibration) | [Get Data](#Get data) | [Cleaning](#Clean) | [Examples](#Examples)
+##Introduction 
+The GP3 communicates via the Open Eye-gaze Interface API, which relies on TCP/IP for data transfer. The documentation for the GP3 API is available [here](http://gazept.com/dl/Gazepoint_API_v2.0.pdf).  Using the GP3 eye-tracker is trivial in any programming platform that allows TCP/IP communication. This repository holds an API abstraction for Matlab.
 
 ##Usage
+
+###Requirements
+The GP3 has been designed for Microsoft Windows 7 and 8 (32- and 64-bit) and requires an Intel Core i5 or higher processor, 8GB RAM and two USB ports. Though the GP3 hardware and software must be ran on a Windows machine, you can use its API by opening up the _GazepointControl_ application on the host computer and accessing the data via its transmission.
 
 ###Download tool-kit
 To begin, downlaod the `gazepoint_connect.m` file and place it in your project directory. Like any other script file that you will use in your Matlab project, be sure to add its path ie: `addpath(scripts/gazepoint_connect.m)`. 
@@ -92,7 +94,7 @@ fixation filter.</td>
 ###Clean
 After running every session, remember to run `client_clean()` to stop data transmission, disconnect and delete the socket.
 
-###Example
+###Examples
 
 ```
 gazepoint_connect('192.168.1.100', 4242);
