@@ -5,6 +5,7 @@ This repository holds an API abstraction for Matlab.
 The GP3 communicates via the Open Eye-gaze Interface API, which relies on TCP/IP for data transfer. The documentation for this API is available [here](http://gazept.com/dl/Gazepoint_API_v2.0.pdf). The GP3 has been designed for Microsoft Windows 7 and 8 (32- and 64-bit) and requires an Intel Core i5 or higher processor, 8GB RAM and two USB ports. Though the GP3 hardware and software must be ran on a Windows machine you can use its API by opening up the _GazepointControl_ application. Using the GP3 eye-tracker is trivial in any programming platform that allows TCP/IP communication.
 
 ##Usage
+
 ###Download tool-kit
 To begin, downlaod the `gazepoint_connect.m` file and place it in your project directory. Like any other script file that you will use in your Matlab project, be sure to add its path ie: `addpath(scripts/gazepoint_connect.m)`. 
 ###Finding your IP address
@@ -20,7 +21,7 @@ The IPv4 is your machine's ip address.
 Once you are able to access the functions in this toolkit make sure that you launch the _GazepointControl_ application on your host computer. The first thing we will want to do in our code is establish a connection or _socket_ between the computer and the GP3. The GP3 broadcasts its data to port 4242 by default, though you do not need to worry about this unless you are running more than one eye tracker on the same machine. 
 
 
-Run `gazepoint_connect('you.ip.address', 4242)`.
+Run `gazepoint_connect('you.ip.address', 4242)`
 
 
 If you are using the same machine running the GP3 to run your experiments, you don't need to worry about this. You can simply run `gazepoint_connect()` and it should default to your local ip address.
@@ -90,3 +91,15 @@ fixation filter.</td>
 
 ###Clean
 After running every session, remember to run `client_clean()` to stop data transmission, disconnect and delete the socket.
+
+###Example
+
+```
+gazepoint_connect('192.168.1.100', 4242);
+gazepoint_calibrate();
+gazepoint_display(0);
+get_data('ENABLE_SEND_POG_BEST');
+% do something cool with the data
+...
+client_clean();
+```
