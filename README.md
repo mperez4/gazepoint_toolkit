@@ -1,5 +1,5 @@
 #Gazepoint toolkit for Matlab
-_______________________
+
 ##Introduction
 This repository holds an API abstraction for Matlab.
 The GP3 communicates via the Open Eye-gaze Interface API, which relies on TCP/IP for data transfer. The documentation for this API is available [here](http://gazept.com/dl/Gazepoint_API_v2.0.pdf). The GP3 has been designed for Microsoft Windows 7 and 8 (32- and 64-bit) and requires an Intel Core i5 or higher processor, 8GB RAM and two USB ports. Though the GP3 hardware and software must be ran on a Windows machine you can use its API by opening up the _GazepointControl_ application. Using the GP3 eye-tracker is trivial in any programming platform that allows TCP/IP communication.
