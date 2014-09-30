@@ -6,7 +6,7 @@ The GP3 communicates via the Open Eye-gaze Interface API, which relies on TCP/IP
 ##Usage
 
 ###Requirements
-The GP3 has been designed for Microsoft Windows 7 and 8 (32- and 64-bit) and requires an Intel Core i5 or higher processor, 8GB RAM and two USB ports. Though the GP3 hardware and software must be ran on a Windows machine, you can use its API by opening up the _GazepointControl_ application on the host computer and accessing the data via its transmission.
+The GP3 has been designed for Microsoft Windows 7 and 8 (32- and 64-bit) and requires an Intel Core i5 or higher processor, 8GB RAM and two USB ports. 
 
 ###Download tool-kit
 To begin, downlaod the `gazepoint_connect.m` file and place it in your project directory. Like any other script file that you will use in your Matlab project, be sure to add its path ie: `addpath(scripts/gazepoint_connect.m)`. 
@@ -97,11 +97,11 @@ After running every session, remember to run `client_clean()` to stop data trans
 ###Examples
 
 ```
-gazepoint_connect('192.168.1.100', 4242);
-gazepoint_calibrate();
-gazepoint_display(0);
-get_data('ENABLE_SEND_POG_BEST');
+gazpt_object = gazpt;
+gazpt_object.connect_gazepoint('192.168.1.100', 4242);
+gazpt_object.calibrate;
+gazpt_object.get_data('ENABLE_SEND_POG_BEST');
 % do something cool with the data
 ...
-client_clean();
+gazpt_object.client_clean();
 ```
