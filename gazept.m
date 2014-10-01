@@ -23,7 +23,7 @@ classdef gazept < handle
                 fprintf('Make sure GazepointControl is open on host machine.');
             end
         end
-        function obj=calibrate(obj)
+        function obj = calibrate(obj)
             fprintf(obj.client_socket, '<SET ID="CALIBRATE_SHOW" STATE="1" />');
             fprintf(obj.client_socket, '<SET ID="CALIBRATE_START" STATE="1" />');
             pause(15);
@@ -44,7 +44,7 @@ classdef gazept < handle
             while (get(obj.client_socket, 'BytesAvailable') > 0) 
                 data = fscanf(obj.client_socket);                
                 c = '<REC />';             
-                if strncmp(data, c,7)
+                if strncmp(data, c, 7)
                     fprintf('waiting for good data... \n');
                 else
                     try
@@ -66,7 +66,6 @@ classdef gazept < handle
             fclose(obj.client_socket); 
             delete(obj.client_socket); 
             clear obj.client_socket
-        end
-    
+        end   
     end
 end
