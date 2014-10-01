@@ -37,7 +37,11 @@ classdef gazept < handle
             end
             pause(1);
             fprintf(obj.client_socket, '<SET ID="ENABLE_SEND_DATA" STATE="1" />');
-        end               
+        end
+        function obj = display(obj, state)
+           COMMAND = strcat('<SET ID="TRACKER_DISPLAY" STATE="',state,'" />');
+           fprintf(obj.client_socket, COMMAND); 
+        end
         function obj = get_data(obj, command)          
             COMMAND = strcat('<SET ID="', command, '" STATE="1" />');            
             fprintf(obj.client_socket, COMMAND);            
