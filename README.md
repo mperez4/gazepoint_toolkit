@@ -90,7 +90,7 @@ Pass it a _0_ to hide, or a _1_ to show.
 ###Calibration
 Run the calibration 
 ```matlab
-gazept_object.calibrate();
+>>> gazept_object.calibrate();
 ```
 The calibration sequence takes about 7 seconds to complete. By default, `gazept_object.calibrate()` displays the results for 8 seconds after the sequence.
 You can lengthen or shorten this time by passing an int number
@@ -172,4 +172,4 @@ Once you run `gazept_object.get_data();`, you can access the x and y coordinates
 
 Once finished with your experiment, you should stop communication with the GP3.
 
-```>>> gazept_end();```
+```>>> gazept_object.clean();```
