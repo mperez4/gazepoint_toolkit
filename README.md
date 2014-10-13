@@ -26,14 +26,14 @@ If you are running your Matlab experiment on the same computer that is operating
 
 ```matlab
 % by default, gazept_start() uses a 15 second pause
->> gazept_start();
+>>> gazept_start();
 ```
 
 or 
 
 ```matlab
 % you can specify your delay time by passing in an int value
->> gazept_start(10);
+>>> gazept_start(10);
 ```
 ###Getting data
 After successfully running the calibration, you can access the best point of gaze coordinate data for both eyes by calling `gazept_object.gx;` and `gazept_object.gy;`
