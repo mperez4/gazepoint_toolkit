@@ -1,5 +1,5 @@
 #Gazepoint toolkit for Matlab
-[Download](#download-tool-kit) | [Hardware setup](#GP3-hardware-setup)  | 	[Basic Use](#for-basic-use) | [For Developers](#for-developers) | [Command list](#get-data)
+[Download](#download-tool-kit) | [Hardware setup](#gp3-hardware-setup)  | 	[Basic Use](#for-basic-use) | [For Developers](#for-developers) | [Command list](#get-data)
 ##Introduction 
 The GP3 communicates via the Open Eye-gaze Interface API, which relies on TCP/IP for data transfer. The documentation for the GP3 API is available [here](http://gazept.com/dl/Gazepoint_API_v2.0.pdf).  Using the GP3 eye-tracker is trivial in any programming platform that allows TCP/IP communication. This repository holds an API abstraction for Matlab.
 
