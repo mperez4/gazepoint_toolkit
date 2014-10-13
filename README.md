@@ -11,7 +11,7 @@ The GP3 has been designed for Microsoft Windows 7 and 8 (32- and 64-bit) and req
 ###Download tool-kit
 To begin, downlaod the `gazept.m` and `gazept_start.m` files and place it in your project directory. Like any other script file that you will use in your Matlab project, be sure to add its path ie: `addpath(gazept.m)`. 
 ###GP3 hardware setup
-First, open the `Gazepoint Control` application. Make sure that your subject's eyes are visible in the camera display. The diagram on fig1 shows a proper setup for the GP3.
+First, open the _Gazepoint Control_ application. Make sure that your subject's eyes are visible in the camera display. The diagram on fig1 shows a proper setup for the GP3.
 
 ![img](media/GP3_setup.jpg)
 fig1
@@ -21,7 +21,7 @@ The dot in the center of the GP3 application indicates the quality of the user's
 If you are running your Matlab experiment on the same computer that is operating the GP3, and just want a quick and easy way to access the X and Y point of gaze data, this section is for you.
 
 `gazept_start.m` contains simple functions that operate the GP3 at a high level. 
-####Setup and calibration
+###Setup and calibration
 `gazept_start();` will begin by connecting the eye tracker to Matlab and running the default GP3 calibration. The user should follow the dots in the correct sequence. The results are displayed after the sequence is completed. You are able to pass in a delay variable to `gazept_start()` if you wish to extend or shorten the results screen.
 
 ```matlab
@@ -35,7 +35,7 @@ or
 % you can specify your delay time by passing in an int value
 >> gazept_start(10);
 ```
-####Getting data
+###Getting data
 After successfully running the calibration, you can access the best point of gaze coordinate data for both eyes by calling `gazept_object.gx;` and `gazept_object.gy;`
 
 ```matlab
@@ -44,8 +44,8 @@ After successfully running the calibration, you can access the best point of gaz
 >>> fprintf(coordinates);
 ```
 
-#####Cleaning
-Once finished with your experiment, you should stop communication with the GP3
+###Cleaning
+Once finished with your experiment, you should stop communication with the GP3.
 
 ```>>> gazept_end();```
 
@@ -60,28 +60,49 @@ Whether you are running your experiments on the same computer that hosts the eye
 
 
 The IPv4 is your machine's ip address. 
+###Creating an instance of the gazept object
+This tool-kit is a _classdef_. Begin by creating an instance of the object. You may create one instance per eye tracker.
+```matlab
+>>> gazept_object = gazept();
+```
 
 ###Connecting to the Gazepoint Tracker
-Once you are able to access the functions in this toolkit make sure that you launch the _GazepointControl_ application on your host computer. The first thing we will want to do in our code is establish a connection or _socket_ between the computer and the GP3. The GP3 broadcasts its data to port 4242 by default, though you do not need to worry about this unless you are running more than one eye tracker on the same machine. 
+Once you are able to access the functions in this toolkit make sure that you launch the _Gazepoint Control_ application on your host computer. The first thing we will want to do in our code is establish a connection or _socket_ between the computer and the GP3. The GP3 broadcasts its data to port 4242 by default, though you do not need to worry about this unless you are running more than one eye tracker on the same machine. 
 
+```matlab
+% if you are accessing the GP3 locally
+>>> gazept_object.connect();
+```
 
-Run `gazepoint_connect('you.ip.address', 4242)`
-
-
-If you are using the same machine running the GP3 to run your experiments, you don't need to worry about this. You can simply run `gazepoint_connect()` and it should default to your local ip address.
-
-###Setting up the GP3 and GazepointControl
-Images about how to properly setup the distance between subject and actual tracker 
+```matlab
+% if you are accessing the GP3 data from a remote computer 
+>>> gazept_object.connect('the.gp3.ip.address', 4242);
+```
 
 ###Hiding the GazepointControl screen
-To hide or show the GazepointControl application remotely, use `gazepoint_display(bool)`. Pass it a _0_ to hide, or a _1_ to show.
+To hide or show the GazepointControl application remotely.
+Pass it a _0_ to hide, or a _1_ to show.
+```matlab
+% Hides the GP3 Control window
+>>> gazept_object.connect(0);
+```
 
 ###Calibration
-Run the gazepoint-screen calibration for better results. `gazepoint_calibrate()` will run the calibration sequence and return the calibration results. You need at least four successful calibration points get proper data. 
+Run the calibration 
+```matlab
+gazept_object.calibrate();
+```
+The calibration sequence takes about 7 seconds to complete. By default, `gazept_object.calibrate()` displays the results for 8 seconds after the sequence.
+You can lengthen or shorten this time by passing an int number
+
+```matlab
+% make the calibration result duration 3 seconds
+>>> gazept_object.calibrate(10);
+``` 
 
 ###Get data
 This abstract function gets whatever type of data that you want. Just pass it anything from the following options as a string:
-`get_data('ENABLE_SEND_POG_BEST')`
+
 <table>
 	<tr>
 		<td><b>Type</td>
@@ -131,19 +152,24 @@ fixation filter.</td>
 		<td>The computed 3D data for the right eye position</td>
 	</tr>
 </table>		
+See API doc for details.
 
-
-###Clean
-After running every session, remember to run `client_clean()` to stop data transmission, disconnect and delete the socket.
-
-###Examples
-
+```matlab
+% Request the best point of gaze from both eyes
+>>> gazept_object.get_data('ENABLE_SEND_POG_BEST');
 ```
-gazpt_object = gazpt;
-gazpt_object.connect_gazepoint('192.168.1.100', 4242);
-gazpt_object.calibrate;
-gazpt_object.get_data('ENABLE_SEND_POG_BEST');
-% do something cool with the data
-...
-gazpt_object.client_clean();
+
+###Access data after request
+Once you run `gazept_object.get_data();`, you can access the x and y coordinates via the `gx` and `gy` method.
+
+```matlab
+% create a matrix of x and y coordinates
+>>> coordinates = [gazept_object.gx, gazept_object.gy];
+>>> fprintf(coordinates);
 ```
+
+###Cleaning
+
+Once finished with your experiment, you should stop communication with the GP3.
+
+```>>> gazept_end();```
