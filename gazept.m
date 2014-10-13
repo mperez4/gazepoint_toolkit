@@ -1,5 +1,5 @@
 classdef gazept < handle
-    properties(SetAccess=private)
+    properties(SetAccess=public)
         ip_address        
         port_number
         client_socket
@@ -16,8 +16,7 @@ classdef gazept < handle
                 obj.client_socket = tcpip(obj.ip_address, obj.port_number);
                 set(obj.client_socket, 'InputBufferSize', 4096); 
                 fopen(obj.client_socket);     
-                obj.client_socket.Terminator = 'CR/LF';            
-                %fprintf(obj.client_socket, '<SET ID="ENABLE_SEND_COUNTER" STATE="1" />');
+                obj.client_socket.Terminator = 'CR/LF';                            
                 gazepoint_info = strcat('Connected to:', obj.ip_address, ' on port:', num2str(obj.port_number), '\n');  
                 fprintf(gazepoint_info);
             catch err        
@@ -25,10 +24,11 @@ classdef gazept < handle
                 fprintf('Make sure GazepointControl is open on host machine.');
             end
         end
-        function obj = calibrate(obj)
+        function obj = calibrate(obj,delay)
+            if nargin < 2, delay = 15; end
             fprintf(obj.client_socket, '<SET ID="CALIBRATE_SHOW" STATE="1" />');
             fprintf(obj.client_socket, '<SET ID="CALIBRATE_START" STATE="1" />');
-            pause(15);
+            pause(delay);
             fprintf(obj.client_socket, '<SET ID="CALIBRATE_SHOW" STATE="0" />');
             fprintf(obj.client_socket, '<SET ID="CALIBRATE_START" STATE="0" />');
             fprintf(obj.client_socket, '<GET ID="CALIBRATE_RESULT_SUMMARY" />');
@@ -39,8 +39,16 @@ classdef gazept < handle
             end
             pause(1);
             fprintf(obj.client_socket, '<SET ID="ENABLE_SEND_DATA" STATE="1" />');
-        end        
-        function obj = get_data(obj, command)          
+        end
+        function obj = display(obj, state)
+            command = strcat('<SET ID="TRACKER_DISPLAY" STATE ="', state, '" />');
+            fprintf(client_socket, command);
+            while (get(obj.client_socket, 'BytesAvailable') > 0)
+                results = fscanf(obj.client_socket);
+                pause(.01);
+            end
+        function obj = get_data(obj, command)
+            if nargin < 2, command = 'ENABLE_SEND_POG_BEST'; end
             COMMAND = strcat('<SET ID="', command, '" STATE="1" />');            
             fprintf(obj.client_socket, COMMAND);            
             while (get(obj.client_socket, 'BytesAvailable') > 0) 
