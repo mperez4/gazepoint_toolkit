@@ -23,7 +23,7 @@ If you are running your Matlab experiment on the same computer that is operating
 `gazept_start.m` contains simple functions that operate the GP3 at a high level. 
 
 ```matlab
-gazeptstart();
+`'>>'`gazeptstart();
 ```
 
 ##For developers
