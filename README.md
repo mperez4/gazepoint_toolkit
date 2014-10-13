@@ -21,10 +21,34 @@ The dot in the center of the GP3 application indicates the quality of the user's
 If you are running your Matlab experiment on the same computer that is operating the GP3, and just want a quick and easy way to access the X and Y point of gaze data, this section is for you.
 
 `gazept_start.m` contains simple functions that operate the GP3 at a high level. 
+####Setup and calibration
+`gazept_start();` will begin by connecting the eye tracker to Matlab and running the default GP3 calibration. The user should follow the dots in the correct sequence. The results are displayed after the sequence is completed. You are able to pass in a delay variable to `gazept_start()` if you wish to extend or shorten the results screen.
 
 ```matlab
->> gazeptstart();
+% by default, gazept_start() uses a 15 second pause
+>> gazept_start();
 ```
+
+or 
+
+```matlab
+% you can specify your delay time by passing in an int value
+>> gazept_start(10);
+```
+####Getting data
+After successfully running the calibration, you can access the best point of gaze coordinate data for both eyes by calling `gazept_object.gx;` and `gazept_object.gy;`
+
+```matlab
+% create a matrix of x and y coordinates
+>>> coordinates = [gazept_object.gx, gazept_object.gy];
+>>> fprintf(coordinates);
+```
+
+#####Cleaning
+Once finished with your experiment, you should stop communication with the GP3
+
+```>>> gazept_end();```
+
 
 ##For developers
 If you are running your Matlab experiment and need more low level control over the types of data coming from the GP3, want to customize its behavior, or are running more than one experiment using the GP3 on multiple machines, this section is for you
