@@ -3,13 +3,31 @@
 ##Introduction 
 The GP3 communicates via the Open Eye-gaze Interface API, which relies on TCP/IP for data transfer. The documentation for the GP3 API is available [here](http://gazept.com/dl/Gazepoint_API_v2.0.pdf).  Using the GP3 eye-tracker is trivial in any programming platform that allows TCP/IP communication. This repository holds an API abstraction for Matlab.
 
-##Usage
+#Usage
 
 ###Requirements
 The GP3 has been designed for Microsoft Windows 7 and 8 (32- and 64-bit) and requires an Intel Core i5 or higher processor, 8GB RAM and two USB ports. 
 
 ###Download tool-kit
-To begin, downlaod the `gazepoint_connect.m` file and place it in your project directory. Like any other script file that you will use in your Matlab project, be sure to add its path ie: `addpath(scripts/gazepoint_connect.m)`. 
+To begin, downlaod the `gazept.m` and `gazept_start.m` files and place it in your project directory. Like any other script file that you will use in your Matlab project, be sure to add its path ie: `addpath(gazept.m)`. 
+###GP3 hardware setup
+First, open the `Gazepoint Control` application. Make sure that your subject's eyes are visible in the camera display. The diagram on fig1 shows a proper setup for the GP3.
+
+![img](media/GP3_setup.jpg)
+fig1
+
+The dot in the center of the GP3 application indicates the quality of the user's position. You want to have the dot stay green and on the center of the bar. 
+##For basic use
+If you are running your Matlab experiment on the same computer that is operating the GP3, and just want a quick and easy way to access the X and Y point of gaze data, this section is for you.
+
+`gazept_start.m` contains simple functions that operate the GP3 at a high level. 
+
+```matlab
+gazeptstart();
+```
+
+##For developers
+If you are running your Matlab experiment and need more low level control over the types of data coming from the GP3, want to customize its behavior, or are running more than one experiment using the GP3 on multiple machines, this section is for you
 ###Finding your IP address
 Whether you are running your experiments on the same computer that hosts the eye-tracker, or you are using an external computer, the GP3 uses TCP/IP to communicate. To find out the host computer's ip address, open up the `cmd` application and run `ipconfig`. You will see something like this:
 
