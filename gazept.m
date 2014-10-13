@@ -1,11 +1,13 @@
 classdef gazept < handle
     properties(SetAccess=private)
-        ip_address
+        ip_address        
         port_number
         client_socket
+        gx
+        gy
     end
     methods
-        function obj = connect(obj, ip, portnum)
+        function obj = connect(obj, ip, portnum)           
             if nargin < 2, ip = '127.0.0.1'; end
             if nargin < 3, portnum = 4242; end           
             obj.ip_address=ip;
@@ -37,11 +39,7 @@ classdef gazept < handle
             end
             pause(1);
             fprintf(obj.client_socket, '<SET ID="ENABLE_SEND_DATA" STATE="1" />');
-        end
-        function obj = display(obj, state)
-           COMMAND = strcat('<SET ID="TRACKER_DISPLAY" STATE="',state,'" />');
-           fprintf(obj.client_socket, COMMAND); 
-        end
+        end        
         function obj = get_data(obj, command)          
             COMMAND = strcat('<SET ID="', command, '" STATE="1" />');            
             fprintf(obj.client_socket, COMMAND);            
@@ -49,15 +47,14 @@ classdef gazept < handle
                 data = fscanf(obj.client_socket);                
                 c = '<REC />';             
                 if strncmp(data, c, 7)
-                    fprintf('waiting for good data... \n');
+                    fprintf('waiting...\n');
                 else
                     try
                         split = strsplit(data,'"');
-                        X = split(2);
-                        Y = split(4);
-                        x = str2num(char(X));
-                        y = str2num(char(Y));                                        
-                        coordinates = [x,y]           
+                        GX = split(2);
+                        GY = split(4);
+                        gx = str2num(char(GX));
+                        gy = str2num(char(GY));                                                                          
                     catch ex
                         rethrow(ex);
                     end
