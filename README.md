@@ -1,5 +1,5 @@
 #Gazepoint toolkit for Matlab
-[Download](#download-tool-kit) | [Hardware setup](#gp3-hardware-setup)  | 	[Basic Use](#for-basic-use) | [For Developers](#for-developers) | [Command list](#get-data)
+[Download](#download-tool-kit) | [Hardware setup](#gp3-hardware-setup)  | [Basic Use](#for-basic-use) | [Advanced Use](#for-advanced-use) | [Command list](#get-data)
 ##Introduction 
 The GP3 communicates via the Open Eye-gaze Interface API, which relies on TCP/IP for data transfer. The documentation for the GP3 API is available [here](http://gazept.com/dl/Gazepoint_API_v2.0.pdf).  Using the GP3 eye-tracker is trivial in any programming platform that allows TCP/IP communication. This repository holds an API abstraction for Matlab.
 
@@ -50,7 +50,7 @@ Once finished with your experiment, you should stop communication with the GP3.
 ```>>> gazept_end();```
 
 
-##For developers
+##For advanced use
 If you are running your Matlab experiment and need more low level control over the types of data coming from the GP3, want to customize its behavior, or are running more than one experiment using the GP3 on multiple machines, this section is for you
 ###Finding your IP address
 Whether you are running your experiments on the same computer that hosts the eye-tracker, or you are using an external computer, the GP3 uses TCP/IP to communicate. To find out the host computer's ip address, open up the `cmd` application and run `ipconfig`. You will see something like this:
